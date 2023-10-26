@@ -1,0 +1,8 @@
+com\vish\spring\interfaces\Vehicle.class
+com\vish\spring\impl\Truck.class
+com\vish\spring\SpringDemoApplication.class
+com\vish\spring\service\VehicleService.class
+com\vish\spring\impl\Car.class
+com\vish\spring\Driver.class
+com\vish\spring\repository\VehicleRepo.class
+com\vish\spring\controller\VehicleController.class
