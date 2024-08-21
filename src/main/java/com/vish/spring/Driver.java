@@ -10,10 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class Driver {
 
-  @Autowired()
+
   @Qualifier("car")
   private Vehicle vehicle;
 
+  @Autowired()
   public void setVehicle(Vehicle vehicle) {
     System.out.printf("hello how are");
     this.vehicle = vehicle;

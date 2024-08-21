@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Page</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 400px;
+        margin: 100px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #666;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: calc(100% - 20px);
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    .footer {
+        text-align: center;
+        margin-top: 20px;
+        color: #666;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2>Registration Form</h2>
+  <form id="registrationForm" action="/register/user" method="post">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <input type="submit" value="Register">
+  </form>
+  <p class="footer">Already have an account? <a href="login">Login</a></p>
+</div>
+
+<script>
+  document.getElementById('registrationForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the form from submitting normally
+
+      // Serialize form data to JSON
+      let formData = new FormData(this);
+      let jsonData = {};
+      formData.forEach((value, key) => {jsonData[key] = value});
+      let jsonPayload = JSON.stringify(jsonData);
+
+      // Send POST request with JSON payload
+      fetch(this.action, {
+          method: this.method,
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: jsonPayload
+      })
+      .then(response => {
+          if (response.redirected) {
+            window.location.href = response.url; // Redirect to the provided URL
+          }
+          else if (!response.ok) {
+              throw new Error('Network response was not ok');
+          }
+          return response.json();
+      })
+      .then(data => {
+          console.log(data);
+          // Handle response data as needed
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+  });
+</script>
+</body>
+</html>
