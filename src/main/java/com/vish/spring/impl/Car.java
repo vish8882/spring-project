@@ -1,6 +1,5 @@
 package com.vish.spring.impl;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vish.spring.entity.UserData;
 import com.vish.spring.interfaces.Vehicle;
 import jakarta.persistence.Column;
@@ -11,8 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Scope;
@@ -28,23 +25,21 @@ public class Car implements Vehicle {
 
   @Id
   @GeneratedValue
-  private String id;
+  private int id;
   @Column
   private String color;
   @Column
   private String vehicleName;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "userdata_id")
-  @OnDelete(action = OnDeleteAction.CASCADE)
-  @JsonIgnore
   private UserData userData;
 
-  public String getId() {
+  public int getId() {
     return id;
   }
 
-  public void setId(String id) {
+  public void setId(int id) {
     this.id = id;
   }
 
@@ -61,5 +56,13 @@ public class Car implements Vehicle {
   }
   public String getVehicleName() {
     return this.vehicleName;
+  }
+
+  public UserData getUserData() {
+    return userData;
+  }
+
+  public void setUserData(UserData userData) {
+    this.userData = userData;
   }
 }

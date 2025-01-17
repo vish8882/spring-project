@@ -12,7 +12,7 @@ import java.util.List;
 public class UserData {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private int id;
   @Column(nullable=false)
   private String name;
@@ -24,9 +24,8 @@ public class UserData {
   private String password;
 
   @Column(nullable = true)
-  @OneToMany()
+  @OneToMany(mappedBy = "userData")
   private List<Car> cars;
-
 
   public String getName() {
     return name;

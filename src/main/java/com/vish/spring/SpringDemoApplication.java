@@ -17,8 +17,7 @@ public class SpringDemoApplication {
     ApplicationContext context = SpringApplication.run(SpringDemoApplication.class, args);
     Vehicle vehicle = context.getBean(Car.class);
     System.out.println(vehicle.getVehicleName());
-    Car car = (Car) vehicle;
-    car.setVehicleName("different");
+    vehicle.setVehicleName("different");
     LOGGER.debug("Started application");
     Car car1 = context.getBean(Car.class);
     System.out.println(car1.getVehicleName());

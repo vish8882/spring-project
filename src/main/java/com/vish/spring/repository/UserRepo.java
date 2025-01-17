@@ -5,5 +5,5 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepo extends CrudRepository<UserData, String> {
-  Optional<UserData> findByEmail(String email);
+  UserData findByEmail(String email);
 }

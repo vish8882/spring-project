@@ -46,6 +46,7 @@ public class AppSecurity {
     http.csrf(AbstractHttpConfigurer::disable)
         .authorizeHttpRequests(auth -> auth.requestMatchers("/register/**").permitAll()
             .requestMatchers("/registration").permitAll()
+                .requestMatchers("/h2-console/**").permitAll()
             .anyRequest().authenticated()
         ).formLogin(
             form -> form
@@ -53,7 +54,8 @@ public class AppSecurity {
                 .defaultSuccessUrl("/vehicle")
                 .permitAll()
         )
-        .httpBasic(withDefaults());
+        .httpBasic(withDefaults())
+            .headers().frameOptions().sameOrigin();
     return http.build();
   }
 

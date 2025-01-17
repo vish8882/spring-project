@@ -1,11 +1,15 @@
 package com.vish.spring.service;
 
+import com.vish.spring.dto.UserDTO;
 import com.vish.spring.entity.UserData;
 import com.vish.spring.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class UserService {
@@ -20,7 +24,12 @@ public class UserService {
   }
 
   public UserData getUser(String email) {
-    return userRepo.findByEmail(email).orElse(null);
+    return userRepo.findByEmail(email);
   }
 
+  public List<UserDTO> getAllUsers() {
+    List<UserDTO> userDTOS = new ArrayList<>();
+    userRepo.findAll().forEach(u -> userDTOS.add(new UserDTO(u)));
+    return userDTOS;
+  }
 }
